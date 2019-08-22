@@ -4,7 +4,7 @@ namespace TrabajoTarjeta;
 
 class Saldo {
 
-    private $saldo;
+    protected $saldo;
 
     /**
    * Verifica si una recarga puede ser valida y devuelve el valor de la recarga.
@@ -17,7 +17,7 @@ class Saldo {
    *   Monto de la recarga
    */
 
-    private function recargaValida($monto) {
+    protected function recargaValida($monto) {
         switch ($monto) {
           case 10:
           case 20:
