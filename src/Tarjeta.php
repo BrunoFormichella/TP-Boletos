@@ -58,14 +58,14 @@ class Tarjeta implements TarjetaInterface {
       return false;
     }
 
-    $this->saldo->saldo += $monto;
+    $this->saldo->$credito += $monto;
 
     if ($this->cantPlus != 0) {
       $this->plusAbonados = $this->cantPlus;
-      if ($this->saldo->saldo > 0) {
+      if ($this->saldo->$credito > 0) {
         $this->cantPlus = 0;
       }
-      elseif ($this->saldo->saldo >= -$this->precio) {
+      elseif ($this->saldo->$credito >= -$this->precio) {
         $this->cantPlus = 1;
       }
     }
@@ -113,7 +113,7 @@ class Tarjeta implements TarjetaInterface {
    */
 
   public function obtenerSaldo() {
-    return $this->saldo->saldo;
+    return $this->saldo->$credito;
   }
 
   /**
@@ -201,9 +201,9 @@ class Tarjeta implements TarjetaInterface {
 
     $this->esTrasbordo();
 
-    if ($this->saldo->saldo >= (-$this->precio)) {
-      $this->saldo->saldo = (float) number_format($this->saldo->saldo - $this->precio, 2);
-      if ($this->saldo->saldo < 0) {
+    if ($this->saldo->$credito >= (-$this->precio)) {
+      $this->saldo->$credito = (float) number_format($this->saldo->$credito - $this->precio, 2);
+      if ($this->saldo->$credito < 0) {
         $this->cantPlus++;
       }
       $this->minutos = $this->horaEnMinutos();
@@ -275,8 +275,8 @@ class Tarjeta implements TarjetaInterface {
 
   private function verificarTrasbordo($limitacionHora) {
     $limitacion = $this->horaEnMinutos() - $this->minutos < $limitacionHora;
-    $saldo = $this->saldo->saldo >= $this->precio / 3;
-    return $this->contarTrasbordos && $limitacion && $saldo->saldo;
+    $saldo = $this->saldo->$credito >= $this->precio / 3;
+    return $this->contarTrasbordos && $limitacion && $saldo->$credito;
   }
 
   /**

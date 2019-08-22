@@ -4,7 +4,7 @@ namespace TrabajoTarjeta;
 
 class Saldo {
 
-    protected $saldo;
+    protected $credito;
 
     /**
    * Verifica si una recarga puede ser valida y devuelve el valor de la recarga.
