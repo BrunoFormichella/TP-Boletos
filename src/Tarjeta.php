@@ -28,7 +28,7 @@ class Tarjeta implements TarjetaInterface {
   public function __construct(TiempoInterface $tiempo) {
     static $ID = 0;
     $ID++;
-    $this->saldo = 0;
+    $this->saldo = new Saldo;
     $this->precio = 14.80;
     $this->cantPlus = 0;
     $this->id = $ID;
@@ -52,20 +52,20 @@ class Tarjeta implements TarjetaInterface {
    */
 
   public function recargar($monto) {
-    $monto = $this->recargaValida($monto);
+    $monto = $this->saldo->recargaValida($monto);
 
     if ($monto == 0) {
       return false;
     }
 
-    $this->saldo += $monto;
+    $this->saldo->saldo += $monto;
 
     if ($this->cantPlus != 0) {
       $this->plusAbonados = $this->cantPlus;
-      if ($this->saldo > 0) {
+      if ($this->saldo->saldo > 0) {
         $this->cantPlus = 0;
       }
-      elseif ($this->saldo >= -$this->precio) {
+      elseif ($this->saldo->saldo >= -$this->precio) {
         $this->cantPlus = 1;
       }
     }
@@ -83,6 +83,8 @@ class Tarjeta implements TarjetaInterface {
    *   Monto de la recarga
    */
 
+
+   /*Meter esta logica en una clase aparte*/
   private function recargaValida($monto) {
     switch ($monto) {
       case 10:
@@ -111,7 +113,7 @@ class Tarjeta implements TarjetaInterface {
    */
 
   public function obtenerSaldo() {
-    return $this->saldo;
+    return $this->saldo->saldo;
   }
 
   /**
@@ -199,9 +201,9 @@ class Tarjeta implements TarjetaInterface {
 
     $this->esTrasbordo();
 
-    if ($this->saldo >= (-$this->precio)) {
-      $this->saldo = (float) number_format($this->saldo - $this->precio, 2);
-      if ($this->saldo < 0) {
+    if ($this->saldo->saldo >= (-$this->precio)) {
+      $this->saldo->saldo = (float) number_format($this->saldo->saldo - $this->precio, 2);
+      if ($this->saldo->saldo < 0) {
         $this->cantPlus++;
       }
       $this->minutos = $this->horaEnMinutos();
@@ -273,8 +275,8 @@ class Tarjeta implements TarjetaInterface {
 
   private function verificarTrasbordo($limitacionHora) {
     $limitacion = $this->horaEnMinutos() - $this->minutos < $limitacionHora;
-    $saldo = $this->saldo >= $this->precio / 3;
-    return $this->contarTrasbordos && $limitacion && $saldo;
+    $saldo = $this->saldo->saldo >= $this->precio / 3;
+    return $this->contarTrasbordos && $limitacion && $saldo->saldo;
   }
 
   /**
