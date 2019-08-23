@@ -2,6 +2,8 @@
 
 Principio S aplica:
 -colectivo
+-saldo
 
 Principio O aplica
 -colectivo
+-saldo

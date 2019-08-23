@@ -84,8 +84,6 @@ class Tarjeta implements TarjetaInterface {
    */
 
 
-   /*Meter esta logica en una clase aparte*/
-
   private function recargaValida($monto) {
     $monto = $this->saldo->validarRecarga($monto);
     return $monto;
