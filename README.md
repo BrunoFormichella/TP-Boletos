@@ -1,9 +1,15 @@
 # TP-Boletos
 
 Principio S aplica:
--colectivo
--saldo
+-Colectivo
+-FranquiciaCompleta
+-MedioBoleto
+-Saldo
+-Tiempo
 
 Principio O aplica
--colectivo
--saldo
+-Colectivo
+-FranquiciaCompleta
+-MedioBoleto
+-Saldo
+-Tiempo

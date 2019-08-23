@@ -103,7 +103,6 @@ class Boleto implements BoletoInterface {
    *   Tipo de tarjeta
    */
 
-  //Deberia hacerlo otra clase
   private function establecerTipo($tarjeta) {
     switch ($tarjeta->obtenerPrecio()) {
       case 14.80:
