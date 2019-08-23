@@ -52,7 +52,7 @@ class Tarjeta implements TarjetaInterface {
    */
 
   public function recargar($monto) {
-    $monto = $this->saldo->recargaValida($monto);
+    $monto = $this->saldo->validarRecarga($monto);
 
     if ($monto == 0) {
       return false;
@@ -85,8 +85,10 @@ class Tarjeta implements TarjetaInterface {
 
 
    /*Meter esta logica en una clase aparte*/
+
   private function recargaValida($monto) {
-    $monto = Saldo::validarRecarga($monto);
+    $monto = $this->saldo->validarRecarga($monto);
+    return $monto;
   }
 
   /**
