@@ -86,23 +86,7 @@ class Tarjeta implements TarjetaInterface {
 
    /*Meter esta logica en una clase aparte*/
   private function recargaValida($monto) {
-    switch ($monto) {
-      case 10:
-      case 20:
-      case 30:
-      case 50:
-      case 100:
-        break;
-      case 510.15:
-        $monto += 81.93;
-        break;
-      case 962.59:
-        $monto += 221.58;
-        break;
-      default:
-        $monto = 0;
-    }
-    return $monto;
+    $monto = Saldo::validarRecarga($monto);
   }
 
   /**

@@ -17,7 +17,7 @@ class Saldo {
    *   Monto de la recarga
    */
 
-    public function recargaValida($monto) {
+    public static function validarRecarga($monto) {
         switch ($monto) {
           case 10:
           case 20:
