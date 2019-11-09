@@ -105,10 +105,10 @@ class Boleto implements BoletoInterface {
 
   private function establecerTipo($tarjeta) {
     switch ($tarjeta->obtenerPrecio()) {
-      case 14.80:
+      case 32.50:
         $this->tipo = "Normal";
         break;
-      case 7.4:
+      case 16.25:
         $this->tipo = "Medio Boleto";
         break;
       case 0:
@@ -131,15 +131,20 @@ class Boleto implements BoletoInterface {
    *   Tipo de trasbordo
    */
 
-  public function tipoTrasbordo($precio) {
-    switch ($precio) {
-      case (14.8 / 3):
-        return "Trasbordo";
-      case (7.4 / 3):
-        return "Medio Trasbordo";
-    }
-    return "";
-  }
+  /*    <----- no quería borrar esto en caso de que fuera a romper algo 
+  *            pero ahora el trasbordo es siempre 0, no hay tipos
+
+    public function tipoTrasbordo($precio) {
+        switch ($precio) {
+          case (14.8 / 3):
+            return "Trasbordo";
+          case (7.4 / 3):
+            return "Medio Trasbordo";
+        }
+        return "";
+  
+      }
+  */
 
   /**
    * Devuelve el precio del boleto.
