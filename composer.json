@@ -1,4 +1,9 @@
 {
+    "autoload": {
+       "psr-4": {
+          "TrabajoTarjeta\\": "src"
+       }
+    },
     "require": {
         "phpunit/phpunit": "^6"
     }
