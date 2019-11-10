@@ -29,7 +29,7 @@ class Tarjeta implements TarjetaInterface {
     static $ID = 0;
     $ID++;
     $this->saldo = new Saldo;
-    $this->precio = 32.50;
+    $this->precio = 14.8;
     $this->cantPlus = 0;
     $this->id = $ID;
     $this->plusAbonados = 0;

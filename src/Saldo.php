@@ -25,11 +25,11 @@ class Saldo {
           case 50:
           case 100:
             break;
-          case 1119.90:
-            $monto += 180.10;
+          case 510.15:
+            $monto += 81.93;
             break;
-          case 2114.11:
-            $monto += 485.89;
+          case 962.59:
+            $monto += 221.58;
             break;
           default:
             $monto = 0;
