@@ -296,6 +296,17 @@ class Tarjeta implements TarjetaInterface {
   }
   
   /**
+   * Verifica si la hora del pasaje se encuentra entre los momentos que el trasbordo dura 50% mas tiempo
+   *
+   * @return bool
+   *   Indica si el pasaje se paga dentro del rango 22 a 6 am
+   */
+ 
+  private function verificarHora() {
+    return $this->hora() >= 22 || $this->hora() <= 6;
+  }
+
+  /**
    * Devuelve el dia en el que se abona un pasaje
    *
    * @return string
@@ -304,5 +315,25 @@ class Tarjeta implements TarjetaInterface {
   
   protected function dia() {
     return date("l", $this->tiempo->time());
+  }
+
+     /**
+   * Devuelve la hora del dia en minutos
+   *
+   * @return int
+   *   Hora en minutos
+   */
+  protected function horaEnMinutos() {
+    return $this->tiempo->time() / 60;
+  }
+ 
+  /**
+   * Devuelve la hora del dia en formato 24h
+   *
+   * @return int
+   *   Hora
+   */
+  protected function hora() {
+    return (int) date("H", $this->tiempo->time());
   }
 }
