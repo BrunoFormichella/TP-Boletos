@@ -74,3 +74,4 @@ class Trasbordo implements TrasbordoInterface {
         $mismaLinea = $this->ultimaLinea == $linea;
         return isset($linea) && isset($this->ultimaLinea) && $mismaLinea;
     }
+}
