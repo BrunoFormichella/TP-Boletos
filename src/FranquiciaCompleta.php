@@ -23,8 +23,12 @@ class FranquiciaCompleta extends Tarjeta {
    *
    * @return true
    *   Indica que el pasaje se ha podido pagar correctamente
+   *
+   *  public function pagarPasaje() {
+   *    return true;
+   *  }
+   *
+   * No complía con L, sobreescribia el metodo pagarPasaje, al borrar el metodo
+   * usa la definicion del padre, usando como precio del pasaje a 0, lo cual cumple con la franquicia completa.
    */
-  public function pagarPasaje() {
-    return true;
-  }
 }
