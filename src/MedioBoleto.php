@@ -17,44 +17,42 @@ class MedioBoleto extends Tarjeta {
    *   Tipo de la tarjeta. 0 -> Medio Boleto Universitario, en cualquier otro caso -> Medio Boleto Secundario
    */
 
-  public function __construct(TiempoInterface $tiempo) {
+   public function __construct(TiempoInterface $tiempo) {
     parent::__construct($tiempo);
     
-    $this->precioOriginal = $this->precio;
-
     $this->precio /= 2;
 
     $this->tiempo = $tiempo;
-
+  
     $this->tiempoAux = -4000;
-
+    $this->precioOriginal = $this->precio;
   }
-
+  
   /**
    * Determina si el tiempo entre el pasaje anterior y el pasaje que se esta pagando es mayor a 5 minutos
    *
    * @return bool
    *   Indica si pasaron los 5 minutos
    */
-
-  protected function pasaron5Minutos() {
-    return (($this->tiempo->time() - $this->tiempoAux) > 300);
+ 
+   protected function pasaron5Minutos() {
+    return ($this->tiempo->time() - $this->tiempoAux) > 300;
   }
-
+  
   /**
    * Abona un pasaje con el precio que tiene una una tarjeta que no es franquicia
    *
    * @return bool
    *   Indica si se pudo pagar el pasaje
    */
-
-  protected function pasajeNormal() {
+  
+   protected function pasajeNormal() {
     $this->precio *= 2;
     $aux = parent::pagarPasaje();
     $this->precio /= 2;
     return $aux;
   }
-
+  
   /**
    * Reestablece la limitacion de los 2 medios boletos por dia para el boleto universitario
    * y en caso contrario verifica si se utilizaron los dos medios boletos en el dia.
@@ -62,8 +60,8 @@ class MedioBoleto extends Tarjeta {
    * @return bool
    *   Verifica si se utilizaron los dos viajes en el dia
    */
-
-  private function dosViajes() {
+  
+   private function dosViajes() {
     if ($this->tiempo->time() - $this->tiempoAux > 86400) {
       $this->usos = 0;
     }
@@ -72,30 +70,29 @@ class MedioBoleto extends Tarjeta {
     }
     return false;
   }
-
+  
   /**
    * Efectua el pago del boleto con sus beneficios teniendo en cuenta las limitaciones por tiempo
    *
    * @return bool
    *   Indica si se pudo pagar el pasaje
    */
-
-  public function pagarPasaje() {
-    
-    if ($this->obtenerSaldo() < 16.25) {
+  
+   public function pagarPasaje() {
+    if ($this->obtenerSaldo() < 7.4) {
       return $this->pasajeNormal();
     }
-
+  
     if ($this->pasaron5Minutos()) {
       $this->tiempoAux = $this->tiempo->time();
       $this->usos++;      
       return parent::pagarPasaje();
     }
-    
+  
     else {
       return $this->pasajeNormal();
     }
-
+  
   }
 
 }

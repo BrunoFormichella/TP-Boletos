@@ -18,7 +18,7 @@ class Colectivo implements ColectivoInterface {
    *   Empresa del colectivo
    */
 
-  public function __construct($numero, $linea, $empresa) {
+   public function __construct($numero, $linea, $empresa) {
     $this->linea = $linea;
     $this->numero = $numero;
     $this->empresa = $empresa;
@@ -53,7 +53,7 @@ class Colectivo implements ColectivoInterface {
   public function numero() {
     return $this->numero;
   }
-
+  
   /**
    * Determina si es posible realizar un pago y en caso de ser posible lo
    * efectua y genera un boleto que es devuelto por la funcion. En caso de

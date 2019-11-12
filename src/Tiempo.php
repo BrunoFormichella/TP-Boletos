@@ -27,7 +27,7 @@ class TiempoFalso implements TiempoInterface {
    *   Tiempo desde el cual se quiere comenzar
    */
 
-  public function __construct($inicio = 0) {
+   public function __construct($inicio = 0) {
     $this->tiempo = $inicio;
   }
 
