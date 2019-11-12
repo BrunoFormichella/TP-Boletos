@@ -68,7 +68,7 @@ class Colectivo implements ColectivoInterface {
   public function pagarCon(TarjetaInterface $tarjeta) {
     $tarjeta->establecerLinea($this->linea);
     if ($tarjeta->pagarPasaje()) {
-      return new Boleto($this, $tarjeta, new Tiempo());
+      return true;
     }
     else {
       return false;
