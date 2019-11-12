@@ -26,7 +26,7 @@ class Tarjeta implements TarjetaInterface {
     static $ID = 0;
     $ID++;
     $this->saldo = 0;
-    $this->precio = 14.80;
+    $this->precio = 32.50;
     $this->cantPlus = 0;
     $this->id = $ID;
     $this->plusAbonados = 0;
@@ -255,7 +255,7 @@ class Tarjeta implements TarjetaInterface {
       $limitacionHora = 90;
     }
     if ($this->verificarTrasbordo($limitacionHora)) {
-      $this->precio /= 3;
+      $this->precio = 0;
       $this->fueTrasbordo = TRUE;
     }
   }
@@ -289,7 +289,7 @@ class Tarjeta implements TarjetaInterface {
   }
   
   /**
-   * Establece el precio al precio normal de un pasaje (14.8)
+   * Establece el precio al precio normal de un pasaje (32.50)
    */
  
    

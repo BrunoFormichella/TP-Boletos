@@ -156,25 +156,25 @@ class TarjetaTest extends TestCase {
     $colectivo->pagarCon($tarjeta);
     $tarjeta->avanzarTiempo(800);
     $colectivo->pagarCon($tarjeta);
-    $this->assertEquals($tarjeta->obtenerSaldo(), 85.2);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);
 
     $tarjeta->avanzarTiempo(800);
     $boleto = $colectivo2->pagarCon($tarjeta);
-    $this->assertEquals($tarjeta->obtenerSaldo(), 82.73);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);
 
     $tarjeta = new Tarjeta(new TiempoFalso());
     $tarjeta->recargar(100);
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 100 - 14.8);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 100 - 32.5);
 
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 80.27);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 35);
 
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 65.47);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 2.5);
   }
 
   public function testTrasbordoConPlus() {
@@ -182,21 +182,21 @@ class TarjetaTest extends TestCase {
     $tarjeta = new Tarjeta(new TiempoFalso());
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), -14.8);
+    $this->assertEquals($tarjeta->obtenerSaldo(), -32.5);
 
     $tarjeta->recargar(20);
-    $tarjeta->recargar(10);
+    $tarjeta->recargar(20);
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 0.4);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 7.5);
 
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 0.4 - 14.8);
+    $this->assertEquals($tarjeta->obtenerSaldo(), -25);
 
     $tarjeta->recargar(100);
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 100.4 - 29.6);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 42.5);
   }
 }
