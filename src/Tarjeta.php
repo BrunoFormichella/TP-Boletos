@@ -286,7 +286,19 @@ class Tarjeta implements TarjetaInterface {
    * Establece el precio al precio normal de un pasaje (14.8)
    */
  
+   
    public function reestablecerPrecio() {
     $this->precio = $this->precioOriginal;
+  }
+  
+  /**
+   * Devuelve el dia en el que se abona un pasaje
+   *
+   * @return string
+   *   Dia
+   */
+  
+  protected function dia() {
+    return date("l", $this->tiempo->time());
   }
 }
