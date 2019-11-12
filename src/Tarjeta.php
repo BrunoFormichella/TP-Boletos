@@ -41,6 +41,8 @@ class Tarjeta implements TarjetaInterface {
    * Efectua la recarga de dinero en caso de que sea posible y establece la cantidad de pasjaes
    * plus que se pueden abonar con esa recarga
    *
+   *  Mover la logica de recarga a la clase saldo
+   * 
    * @param int $monto
    *   Cantidad de dinero que se quiere recargar
    *
@@ -70,6 +72,8 @@ class Tarjeta implements TarjetaInterface {
   /**
    * Verifica si una recarga puede ser valida y devuelve el valor de la recarga. En caso que no sea valida devuelve 0 como valor de la recarga
    *
+   *  YA ESTA EN LA CLASE SALDO
+   * 
    * @param float $monto
    *   Monto de la recarga
    *
