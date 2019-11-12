@@ -10,7 +10,7 @@ class MedioDePagoTest extends TestCase {
    * Comprueba que la tarjeta aumenta su saldo cuando se carga saldo válido.
    */
   public function testCargaSaldo() {
-    $mediodepago = new MedioDePago(new Tiempo(), new Trasbordo());
+    $mediodepago = new MedioDePago(new Tiempo(), new Trasbordo(), new Saldo());
     $this->assertTrue($mediodepago->recargar(10));
     $this->assertEquals($mediodepago->obtenerSaldo(), 10);
 
@@ -38,7 +38,7 @@ class MedioDePagoTest extends TestCase {
    */
   public function testCargaSaldoInvalido() {
 
-    $mediodepago = new MedioDePago(new Tiempo(), new Trasbordo());
+    $mediodepago = new MedioDePago(new Tiempo(), new Trasbordo(), new Saldo());
     $this->assertFalse($mediodepago->recargar(15));
     $this->assertEquals($mediodepago->obtenerSaldo(), 0);
 
@@ -56,7 +56,7 @@ class MedioDePagoTest extends TestCase {
   }
 
   public function testPagoConSaldo() {
-    $mediodepago = new MedioDePago(new Tiempo(), new Trasbordo());
+    $mediodepago = new MedioDePago(new Tiempo(), new Trasbordo(), new Saldo());
     $mediodepago->recargar(100);
 
     $this->assertTrue($mediodepago->pagarPasaje());
@@ -65,7 +65,7 @@ class MedioDePagoTest extends TestCase {
   }
 
   public function testViajePlus() {
-    $mediodepago = new MedioDePago(new Tiempo(), new Trasbordo());
+    $mediodepago = new MedioDePago(new Tiempo(), new Trasbordo(), new Saldo());
 
     $this->assertTrue($mediodepago->pagarPasaje());
     $this->assertEquals($mediodepago->obtenerSaldo(), -32.5);
@@ -76,7 +76,7 @@ class MedioDePagoTest extends TestCase {
     $this->assertFalse($mediodepago->pagarPasaje());
     $mediodepago->recargar(10);
     $this->assertEquals($mediodepago->obtenerSaldo(), -55);
-    
+
     $this->assertFalse($mediodepago->pagarPasaje());
     $mediodepago->recargar(50);
     $this->assertTrue($mediodepago->pagarPasaje());
@@ -85,14 +85,14 @@ class MedioDePagoTest extends TestCase {
   }
 
   public function testRecargaPlus() {
-    $mediodepago = new MedioDePago(new TiempoFalso(), new Trasbordo());
+    $mediodepago = new MedioDePago(new TiempoFalso(), new Trasbordo(), new Saldo());
     $mediodepago->pagarPasaje();
     $mediodepago->recargar(50);
     $this->assertEquals($mediodepago->obtenerSaldo(), 17.5);
   }
 
   public function testTrasbordo() {
-    $mediodepago = new MedioDePago(new TiempoFalso(), new Trasbordo()); //Se crea el 1 de enero de 1970: Jueves 00:00hs
+    $mediodepago = new MedioDePago(new TiempoFalso(), new Trasbordo(), new Saldo()); //Se crea el 1 de enero de 1970: Jueves 00:00hs
     $mediodepago->recargar(100);
     $mediodepago->pagarPasaje();
     $mediodepago->reestablecerPrecio();
@@ -134,7 +134,7 @@ class MedioDePagoTest extends TestCase {
     $mediodepago->pagarPasaje();
     $mediodepago->reestablecerPrecio();
     $this->assertEquals($mediodepago->obtenerSaldo(), 50.67);
-    
+
     $mediodepago->avanzarTiempo(60 * 80);
     $mediodepago->pagarPasaje();
     $mediodepago->reestablecerPrecio();
@@ -144,7 +144,7 @@ class MedioDePagoTest extends TestCase {
 
   public function testLinea() {
 
-    $mediodepago = new MedioBoleto(new TiempoFalso());
+    $mediodepago = new MedioBoleto(new TiempoFalso(), new Trasbordo(), new Saldo());
     $mediodepago->recargar(100);
     $colectivo = new Colectivo(143, "143 Rojo", "Semtur");
     $colectivo2 = new Colectivo(133, "133 Negro", "Otra");
@@ -157,7 +157,7 @@ class MedioDePagoTest extends TestCase {
     $boleto = $colectivo2->pagarCon($mediodepago);
     $this->assertEquals($mediodepago->obtenerSaldo(), 67.5);
 
-    $mediodepago = new MedioDePago(new TiempoFalso(), new Trasbordo());
+    $mediodepago = new MedioDePago(new TiempoFalso(), new Trasbordo(), new Saldo());
     $mediodepago->recargar(100);
     $mediodepago->pagarPasaje();
     $mediodepago->reestablecerPrecio();
@@ -168,7 +168,7 @@ class MedioDePagoTest extends TestCase {
     $this->assertEquals($mediodepago->obtenerSaldo(), 67.5);
 
     $mediodepago->avanzarTiempo(2000);
-    
+
     $mediodepago->pagarPasaje();
     $mediodepago->reestablecerPrecio();
     $this->assertEquals($mediodepago->obtenerSaldo(), 35);
@@ -176,7 +176,7 @@ class MedioDePagoTest extends TestCase {
 
   public function testTrasbordoConPlus() {
 
-    $mediodepago = new MedioDePago(new TiempoFalso(), new Trasbordo());
+    $mediodepago = new MedioDePago(new TiempoFalso(), new Trasbordo(), new Saldo());
     $mediodepago->pagarPasaje();
     $mediodepago->reestablecerPrecio();
     $this->assertEquals($mediodepago->obtenerSaldo(), -32.5);

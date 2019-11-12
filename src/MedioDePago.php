@@ -15,19 +15,19 @@ class MedioDePago implements MedioDePagoInterface {
   protected $lineaAnterior;
   protected $fueTrasbordo;
   protected $trasbordo;
-  
+
   /**
    * Construye un objeto de tipo tarjeta e inicializa sus variables
    *
    * @param TiempoInterface $tiempo
    *   Tipo de tiempo que va a utilizar la tarjeta (utilizar tiempo falso solo en caso de testing)
    */
-  
-   public function __construct(TiempoInterface $tiempo, TrasbordoInterface $trasbordo, $recarga) {
+
+   public function __construct(TiempoInterface $tiempo, $trasbordo, $recarga) {
     static $ID = 0;
     $ID++;
     $this->saldo = 0;
-    $this->recarga= $recarga
+    $this->recarga= $recarga;
     $this->precio = 32.50;
     $this->cantPlus = 0;
     $this->id = $ID;
@@ -38,111 +38,111 @@ class MedioDePago implements MedioDePagoInterface {
     $this->precioOriginal = $this->precio;
     $fueTrasbordo = FALSE;
   }
- 
+
   /**
    * Efectua la recarga de dinero en caso de que sea posible y establece la cantidad de pasjaes
    * plus que se pueden abonar con esa recarga
    *
    *  Mover la logica de recarga a la clase saldo
-   * 
+   *
    * @param int $monto
    *   Cantidad de dinero que se quiere recargar
    *
    * @return bool
    *   Indica si se pudo recargar la tarjeta
    */
- 
+
    public function recargar($monto) {
-    $monto = $this->saldo->recargaValida($monto);
+    $monto = $this->recarga->recargaValida($monto);
     if ($monto == 0) {
       return false;
     }
-    $this->saldo += ($this->recarga->recargarValida($monto));
+    $this->saldo += ($this->recarga->recargaValida($monto));
     return TRUE;
   }
-  
+
   /**
    * Devuelve el saldo que le queda a la tarjeta.
    *
    * @return float
    *   Saldo de la tarjeta
    */
- 
+
    public function obtenerSaldo() {
     return $this->saldo;
   }
-  
+
   /**
    * Iguala el atributo linea a la linea del colectivo
    *
    * @param string $linea
    *   Linea del colectivo en la que se utiliza la tarjeta
    */
-  
+
    public function establecerLinea($linea) {
     $this->linea = $linea;
   }
-  
+
   /**
    * Devuelve el precio del pasaje que se va a abonar
    *
    * @return int
    *   Precio del pasaje
    */
-  
+
    public function obtenerPrecio() {
     return $this->precio;
   }
-  
+
   /**
    * Devuelve la cantidad de plus que se van a abonar en el proximo pasaje
    *
    * @return int
    *   Cantidad de pasajes plus
    */
-  
+
    public function obtenerCantPlus() {
     return $this->cantPlus;
   }
-  
+
   /**
    * Devuelve el identificador de la tarjeta
    *
    * @return int
    *   ID de la tarjeta
    */
- 
+
    public function obtenerID() {
     return $this->id;
   }
-  
+
   /**
    * Indica que la cantidad de pasajes plus que se van a abonar es 0
    */
- 
+
    public function reestablecerPlus() {
     $this->plusAbonados = 0;
   }
-  
+
   /**
    * Devuelve la cantidad de plus que se deben pagar en el proximo pasaje
    *
    * @return int
    *   Cantidad de plus abonados
    */
-  
+
    public function obtenerPlusAbonados() {
     return $this->plusAbonados;
   }
-  
+
   /**
    * Desactiva la posibilidad de abonar un trasbordo
    */
- 
+
    public function noContarTrasbordos() {
     $this->contarTrasbordos = false;
   }
-  
+
   /**
    * Verifica y en caso de ser posible efectua el pago de un pasaje,
    *  descontando el precio del pasaje abonado y establece la fecha del pasaje.
@@ -152,13 +152,13 @@ class MedioDePago implements MedioDePagoInterface {
    * @return bool
    *   indica si se ha podido pagar el pasaje
    */
-  
+
    public function pagarPasaje() {
     $this->horaMinutos = $this->horaEnMinutos();
     $this->hora = $this->hora();
-
-    $this->trasbordo->esTrasbordo($linea,$minutos,$horaMinutos,$hora);
     $this->minutos = $this->horaEnMinutos();
+
+    $this->fueTrasbordo = $this->trasbordo->esTrasbordo($linea,$minutos,$horaMinutos,$hora);
 
     if ($this->saldo >= (-$this->precio)) {
       $this->saldo = (float) number_format($this->saldo - $this->precio, 2);
@@ -170,21 +170,21 @@ class MedioDePago implements MedioDePagoInterface {
       $this->lineaAnterior = $this->linea;
       return TRUE;
     }
-  
+
     return FALSE;
   }
- 
+
   /**
    * Avanza el tiempo si este es de tipo TiempoFalso
    *
    *  Mandar esta logica a Tiempo.php
-   * 
+   *
    * @param int $segundos
    *
    * @return bool
    *   Indica si se pudo avanzar el tiempo
    */
-  
+
    public function avanzarTiempo($segundos) {
     if ($this->tiempo instanceof TiempoFalso) {
       $this->tiempo->avanzar($segundos);
@@ -192,19 +192,19 @@ class MedioDePago implements MedioDePagoInterface {
     }
     return FALSE;
   }
-  
-  
 
-  
+
+
+
   /**
    * Establece el precio al precio normal de un pasaje (32.50)
    */
- 
-   
+
+
    public function reestablecerPrecio() {
     $this->precio = $this->precioOriginal;
   }
-  
+
 
   /**
    * Devuelve el dia en el que se abona un pasaje
@@ -212,7 +212,7 @@ class MedioDePago implements MedioDePagoInterface {
    * @return string
    *   Dia
    */
-  
+
   protected function dia() {
     return date("l", $this->tiempo->time());
   }
@@ -226,7 +226,7 @@ class MedioDePago implements MedioDePagoInterface {
   protected function horaEnMinutos() {
     return $this->tiempo->time() / 60;
   }
- 
+
   /**
    * Devuelve la hora del dia en formato 24h
    *
