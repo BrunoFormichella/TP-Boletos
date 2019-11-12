@@ -36,6 +36,7 @@ class MedioDePago implements MedioDePagoInterface {
     $this->minutos = -10000;
     $this->contarTrasbordos = TRUE;
     $this->precioOriginal = $this->precio;
+    $this->trasbordo=$trasbordo;
     $fueTrasbordo = FALSE;
   }
 
