@@ -14,7 +14,7 @@ class MedioDePago implements MedioDePagoInterface {
   protected $linea;
   protected $lineaAnterior;
   protected $fueTrasbordo;
-  protected $trasbordo
+  protected $trasbordo;
   
   /**
    * Construye un objeto de tipo tarjeta e inicializa sus variables
