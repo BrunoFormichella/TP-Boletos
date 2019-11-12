@@ -23,10 +23,11 @@ class MedioDePago implements MedioDePagoInterface {
    *   Tipo de tiempo que va a utilizar la tarjeta (utilizar tiempo falso solo en caso de testing)
    */
   
-   public function __construct(TiempoInterface $tiempo, TrasbordoInterface $trasbordo) {
+   public function __construct(TiempoInterface $tiempo, TrasbordoInterface $trasbordo, $recarga) {
     static $ID = 0;
     $ID++;
     $this->saldo = 0;
+    $this->recarga= $recarga
     $this->precio = 32.50;
     $this->cantPlus = 0;
     $this->id = $ID;
@@ -52,54 +53,12 @@ class MedioDePago implements MedioDePagoInterface {
    */
  
    public function recargar($monto) {
-    $monto = $this->recargaValida($monto);
+    $monto = $this->saldo->recargaValida($monto);
     if ($monto == 0) {
       return false;
     }
-    $this->saldo += $monto;
-    if ($this->cantPlus != 0) {
-      $this->plusAbonados = $this->cantPlus;
-      if ($this->saldo > 0) {
-        $this->cantPlus = 0;
-      }
-      elseif ($this->saldo >= -$this->precio) {
-        $this->cantPlus = 1;
-      }
-    }
-  
+    $this->saldo += ($this->recarga->recargarValida($monto));
     return TRUE;
-  }
-  
-  /**
-   * Verifica si una recarga puede ser valida y devuelve el valor de la recarga. En caso que no sea valida devuelve 0 como valor de la recarga
-   *
-   *  YA ESTA EN LA CLASE SALDO
-   * 
-   * @param float $monto
-   *   Monto de la recarga
-   *
-   * @return float
-   *   Monto de la recarga
-   */
-  
-   private function recargaValida($monto) {
-    switch ($monto) {
-      case 10:
-      case 20:
-      case 30:
-      case 50:
-      case 100:
-        break;
-      case 1119.90:
-        $monto += 180.10;
-        break;
-      case 2114.11:
-        $monto += 485.89;
-        break;
-      default:
-        $monto = 0;
-    }
-    return $monto;
   }
   
   /**
