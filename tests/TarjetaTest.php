@@ -60,7 +60,7 @@ class TarjetaTest extends TestCase {
     $tarjeta->recargar(100);
 
     $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertEquals($tarjeta->obtenerSaldo(), 100 - 14.80);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 100 - 32.5);
 
   }
 
@@ -68,17 +68,17 @@ class TarjetaTest extends TestCase {
     $tarjeta = new Tarjeta(new Tiempo());
 
     $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertEquals($tarjeta->obtenerSaldo(), -14.80);
+    $this->assertEquals($tarjeta->obtenerSaldo(), -32.5);
 
     $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertEquals($tarjeta->obtenerSaldo(), -29.60);
+    $this->assertEquals($tarjeta->obtenerSaldo(), -65);
 
     $this->assertFalse($tarjeta->pagarPasaje());
     $tarjeta->recargar(10);
-    $this->assertEquals($tarjeta->obtenerSaldo(), -19.60);
+    $this->assertEquals($tarjeta->obtenerSaldo(), -55);
     
     $this->assertFalse($tarjeta->pagarPasaje());
-    $tarjeta->recargar(10);
+    $tarjeta->recargar(50);
     $this->assertTrue($tarjeta->pagarPasaje());
     $this->assertFalse($tarjeta->pagarPasaje());
 
@@ -87,8 +87,8 @@ class TarjetaTest extends TestCase {
   public function testRecargaPlus() {
     $tarjeta = new Tarjeta(new TiempoFalso());
     $tarjeta->pagarPasaje();
-    $tarjeta->recargar(20);
-    $this->assertEquals($tarjeta->obtenerSaldo(), 5.2);
+    $tarjeta->recargar(50);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 17.5);
   }
 
   public function testTrasbordo() {
@@ -96,27 +96,22 @@ class TarjetaTest extends TestCase {
     $tarjeta->recargar(100);
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 85.2);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);
 
-    $tarjeta->avanzarTiempo(5000);
+    $tarjeta->avanzarTiempo(500);
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 80.27);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);
 
     $tarjeta->avanzarTiempo(21200);
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 65.47);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 35);
 
     $tarjeta->avanzarTiempo(4000);
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 50.67);
-
-    $tarjeta->avanzarTiempo(3000);
-    $tarjeta->pagarPasaje();
-    $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 45.74);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 2.5);
   }
 
   /*
@@ -156,25 +151,27 @@ class TarjetaTest extends TestCase {
     $colectivo->pagarCon($tarjeta);
     $tarjeta->avanzarTiempo(800);
     $colectivo->pagarCon($tarjeta);
-    $this->assertEquals($tarjeta->obtenerSaldo(), 85.2);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);
 
     $tarjeta->avanzarTiempo(800);
     $boleto = $colectivo2->pagarCon($tarjeta);
-    $this->assertEquals($tarjeta->obtenerSaldo(), 82.73);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);
 
     $tarjeta = new Tarjeta(new TiempoFalso());
     $tarjeta->recargar(100);
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 100 - 14.8);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 100 - 32.5);
 
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 80.27);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);
 
+    $tarjeta->avanzarTiempo(2000);
+    
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 65.47);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 35);
   }
 
   public function testTrasbordoConPlus() {
@@ -182,21 +179,21 @@ class TarjetaTest extends TestCase {
     $tarjeta = new Tarjeta(new TiempoFalso());
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), -14.8);
+    $this->assertEquals($tarjeta->obtenerSaldo(), -32.5);
 
     $tarjeta->recargar(20);
-    $tarjeta->recargar(10);
+    $tarjeta->recargar(20);
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 0.4);
+    $this->assertEquals($tarjeta->obtenerSaldo(), -25);
 
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 0.4 - 14.8);
+    $this->assertEquals($tarjeta->obtenerSaldo(), -57.5);
 
     $tarjeta->recargar(100);
     $tarjeta->pagarPasaje();
     $tarjeta->reestablecerPrecio();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 100.4 - 29.6);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 10);
   }
 }
