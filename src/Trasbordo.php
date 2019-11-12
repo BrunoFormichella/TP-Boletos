@@ -43,7 +43,7 @@ class Trasbordo {
     */
 
     public function verificarHora($hora) {
-        return $hora >= 22 || $hora() <= 6;
+        return $hora >= 22 || $hora <= 6;
     }
 
 
