@@ -214,6 +214,8 @@ class Tarjeta implements TarjetaInterface {
   /**
    * Avanza el tiempo si este es de tipo TiempoFalso
    *
+   *  Mandar esta logica a Tiempo.php
+   * 
    * @param int $segundos
    *
    * @return bool
