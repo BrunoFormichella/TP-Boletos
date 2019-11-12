@@ -14,6 +14,7 @@ class MedioDePago implements MedioDePagoInterface {
   protected $linea;
   protected $lineaAnterior;
   protected $fueTrasbordo;
+  protected $trasbordo
   
   /**
    * Construye un objeto de tipo tarjeta e inicializa sus variables
@@ -22,7 +23,7 @@ class MedioDePago implements MedioDePagoInterface {
    *   Tipo de tiempo que va a utilizar la tarjeta (utilizar tiempo falso solo en caso de testing)
    */
   
-   public function __construct(TiempoInterface $tiempo) {
+   public function __construct(TiempoInterface $tiempo, TrasbordoInterface $trasbordo) {
     static $ID = 0;
     $ID++;
     $this->saldo = 0;
@@ -194,14 +195,17 @@ class MedioDePago implements MedioDePagoInterface {
    */
   
    public function pagarPasaje() {
-  
-    $this->esTrasbordo();
+    $this->horaMinutos = $this->horaEnMinutos();
+    $this->hora = $this->hora();
+
+    $this->trasbordo->esTrasbordo($linea,$minutos,$horaMinutos,$hora);
+    $this->minutos = $this->horaEnMinutos();
+
     if ($this->saldo >= (-$this->precio)) {
       $this->saldo = (float) number_format($this->saldo - $this->precio, 2);
       if ($this->saldo < 0) {
         $this->cantPlus++;
       }
-      $this->minutos = $this->horaEnMinutos();
       $this->dia = $this->dia();
       $this->hora = (int) date("H", $this->tiempo->time());
       $this->lineaAnterior = $this->linea;
@@ -230,55 +234,8 @@ class MedioDePago implements MedioDePagoInterface {
     return FALSE;
   }
   
-  /**
-   * Verifica si el pasaje a pagar es un trasbordo. Si es un trasbordo, cambia el precio del pasaje.
-   */
   
-   protected function esTrasbordo() {
-    if ($this->fueTrasbordo || $this->plusAbonados != 0) {
-      $this->fueTrasbordo = FALSE;
-      return;
-    }
-    if ($this->verificarLinea()) {
-      return;
-    }
-    $limitacionHora = 60;
-    if ($this->verificarHora()) {
-      $limitacionHora = 120;
-    }
-    if ($this->verificarTrasbordo($limitacionHora)) {
-      $this->precio = 0;
-      $this->fueTrasbordo = TRUE;
-    }
-  }
-  
-  /**
-   * Evalua si el pasaje cumple con las condiciones para ser trasbordo
-   *
-   * @param int $limitacionHora
-   *   Cantidad de tiempo que dura el trasbordo
-   *
-   * @return bool
-   *   Indica si el pasaje es trasbordo
-   */
-  
-   private function verificarTrasbordo($limitacionHora) {
-    $limitacion = $this->horaEnMinutos() - $this->minutos < $limitacionHora;
-    $saldo = $this->saldo >= $this->precio / 3;
-    return $this->contarTrasbordos && $limitacion && $saldo;
-  }
-  
-  /**
-   * Verifica si la linea del viaje anterior es la misma que la del viaje que se esta pagando ahora
-   *
-   * @return bool
-   *   Indica si las lineas son diferentes
-   */
-  
-   private function verificarLinea() {
-    $mismaLinea = $this->lineaAnterior == $this->linea;
-    return isset($this->linea) && isset($this->lineaAnterior) && $mismaLinea;
-  }
+
   
   /**
    * Establece el precio al precio normal de un pasaje (32.50)
@@ -289,16 +246,6 @@ class MedioDePago implements MedioDePagoInterface {
     $this->precio = $this->precioOriginal;
   }
   
-  /**
-   * Verifica si la hora del pasaje se encuentra entre los momentos que el trasbordo dura 50% mas tiempo
-   *
-   * @return bool
-   *   Indica si el pasaje se paga dentro del rango 22 a 6 am
-   */
- 
-  private function verificarHora() {
-    return $this->hora() >= 22 || $this->hora() <= 6;
-  }
 
   /**
    * Devuelve el dia en el que se abona un pasaje
