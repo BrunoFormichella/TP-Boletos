@@ -15,6 +15,7 @@ class MedioDePago implements MedioDePagoInterface {
   protected $lineaAnterior;
   protected $fueTrasbordo;
   protected $trasbordo;
+  protected $minutos;
 
   /**
    * Construye un objeto de tipo tarjeta e inicializa sus variables
@@ -155,8 +156,8 @@ class MedioDePago implements MedioDePagoInterface {
    */
 
    public function pagarPasaje() {
-    $this->horaMinutos = $this->horaEnMinutos();
-    $this->hora = $this->hora();
+    $horaMinutos = $this->horaEnMinutos();
+    $hora = $this->hora();
     $this->minutos = $this->horaEnMinutos();
 
     $this->fueTrasbordo = $this->trasbordo->esTrasbordo($linea,$minutos,$horaMinutos,$hora);
