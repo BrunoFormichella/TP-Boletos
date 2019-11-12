@@ -1,6 +1,6 @@
 <?php
 
-namespace TrabajoTarjeta;
+namespace TrabajoPagos;
 
 class Saldo {
 

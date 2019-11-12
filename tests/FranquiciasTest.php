@@ -1,91 +1,91 @@
 <?php
 
-namespace TrabajoTarjeta;
+namespace TrabajoPagos;
 
 use PHPUnit\Framework\TestCase;
 
 class FranquiciasTest extends TestCase {
 
   public function testMedioBoleto() {
-    $tarjeta = new MedioBoleto(new TiempoFalso(900));
-    $tarjeta->recargar(100);
-    $tarjeta->pagarPasaje();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 83.75);
-    $tarjeta->avanzarTiempo(8000);
-    $tarjeta->pagarPasaje();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);
-    $tarjeta->avanzarTiempo(8000);
-    $tarjeta->pagarPasaje();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 51.25);
-    $tarjeta->avanzarTiempo(8000);
-    $tarjeta->pagarPasaje();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 35);
+    $mediodepago = new MedioBoleto(new TiempoFalso(900));
+    $mediodepago->recargar(100);
+    $mediodepago->pagarPasaje();
+    $this->assertEquals($mediodepago->obtenerSaldo(), 83.75);
+    $mediodepago->avanzarTiempo(8000);
+    $mediodepago->pagarPasaje();
+    $this->assertEquals($mediodepago->obtenerSaldo(), 67.5);
+    $mediodepago->avanzarTiempo(8000);
+    $mediodepago->pagarPasaje();
+    $this->assertEquals($mediodepago->obtenerSaldo(), 51.25);
+    $mediodepago->avanzarTiempo(8000);
+    $mediodepago->pagarPasaje();
+    $this->assertEquals($mediodepago->obtenerSaldo(), 35);
 
   }
 
   public function testFranquiciaCompleta() {
 
-    $tarjeta = new FranquiciaCompleta(new Tiempo());
-    $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertTrue($tarjeta->pagarPasaje());
+    $mediodepago = new FranquiciaCompleta(new Tiempo());
+    $this->assertTrue($mediodepago->pagarPasaje());
+    $this->assertTrue($mediodepago->pagarPasaje());
+    $this->assertTrue($mediodepago->pagarPasaje());
+    $this->assertTrue($mediodepago->pagarPasaje());
   }
 
   public function testLimitacion5mins() {
-    $tarjeta = new MedioBoleto(new TiempoFalso(700));
-    $tarjeta->noContarTrasbordos();
-    $tarjeta->recargar(100);
-    $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertEquals($tarjeta->obtenerSaldo(), 83.75);
-    $tarjeta->avanzarTiempo(200);
-    $tarjeta->pagarPasaje();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 51.25);
-    $tarjeta->avanzarTiempo(200);
-    $tarjeta->pagarPasaje();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 35);
+    $mediodepago = new MedioBoleto(new TiempoFalso(700));
+    $mediodepago->noContarTrasbordos();
+    $mediodepago->recargar(100);
+    $this->assertTrue($mediodepago->pagarPasaje());
+    $this->assertEquals($mediodepago->obtenerSaldo(), 83.75);
+    $mediodepago->avanzarTiempo(200);
+    $mediodepago->pagarPasaje();
+    $this->assertEquals($mediodepago->obtenerSaldo(), 51.25);
+    $mediodepago->avanzarTiempo(200);
+    $mediodepago->pagarPasaje();
+    $this->assertEquals($mediodepago->obtenerSaldo(), 35);
   }
 
   public function testViajePlus() {
-    $tarjeta = new MedioBoleto(new TiempoFalso(900));
-    $tarjeta->noContarTrasbordos();
-    $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertEquals($tarjeta->obtenerSaldo(), -32.5);
-    $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertEquals($tarjeta->obtenerSaldo(), -65);
-    $tarjeta->recargar(100);
-    $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertEquals($tarjeta->obtenerSaldo(), 18.75);
+    $mediodepago = new MedioBoleto(new TiempoFalso(900));
+    $mediodepago->noContarTrasbordos();
+    $this->assertTrue($mediodepago->pagarPasaje());
+    $this->assertEquals($mediodepago->obtenerSaldo(), -32.5);
+    $this->assertTrue($mediodepago->pagarPasaje());
+    $this->assertEquals($mediodepago->obtenerSaldo(), -65);
+    $mediodepago->recargar(100);
+    $this->assertTrue($mediodepago->pagarPasaje());
+    $this->assertEquals($mediodepago->obtenerSaldo(), 18.75);
   }
 
   /*
   public function testLimitacionUniversitario() {
-    $tarjeta = new MedioBoleto(new TiempoFalso(900), 0);
-    $tarjeta->noContarTrasbordos();
-    $tarjeta->recargar(100);
-    $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertEquals($tarjeta->obtenerSaldo(), 92.6);
-    $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertEquals($tarjeta->obtenerSaldo(), 77.8);
-    $tarjeta->avanzarTiempo(900);
-    $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertEquals($tarjeta->obtenerSaldo(), 70.4);
-    $tarjeta->avanzarTiempo(900);
-    $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertEquals($tarjeta->obtenerSaldo(), 63);
-    $tarjeta->avanzarTiempo(86000);
-    $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertEquals($tarjeta->obtenerSaldo(), 48.2);
+    $mediodepago = new MedioBoleto(new TiempoFalso(900), 0);
+    $mediodepago->noContarTrasbordos();
+    $mediodepago->recargar(100);
+    $this->assertTrue($mediodepago->pagarPasaje());
+    $this->assertEquals($mediodepago->obtenerSaldo(), 92.6);
+    $this->assertTrue($mediodepago->pagarPasaje());
+    $this->assertEquals($mediodepago->obtenerSaldo(), 77.8);
+    $mediodepago->avanzarTiempo(900);
+    $this->assertTrue($mediodepago->pagarPasaje());
+    $this->assertEquals($mediodepago->obtenerSaldo(), 70.4);
+    $mediodepago->avanzarTiempo(900);
+    $this->assertTrue($mediodepago->pagarPasaje());
+    $this->assertEquals($mediodepago->obtenerSaldo(), 63);
+    $mediodepago->avanzarTiempo(86000);
+    $this->assertTrue($mediodepago->pagarPasaje());
+    $this->assertEquals($mediodepago->obtenerSaldo(), 48.2);
 
   }
   */
   
   public function testTiempoReal() {
-    $tarjeta = new MedioBoleto(new Tiempo());
-    $this->assertFalse($tarjeta->avanzarTiempo(200));
-    $this->assertFalse($tarjeta->avanzarTiempo("200"));
-    $this->assertFalse($tarjeta->avanzarTiempo(12));
-    $this->assertFalse($tarjeta->avanzarTiempo(-200));
+    $mediodepago = new MedioBoleto(new Tiempo());
+    $this->assertFalse($mediodepago->avanzarTiempo(200));
+    $this->assertFalse($mediodepago->avanzarTiempo("200"));
+    $this->assertFalse($mediodepago->avanzarTiempo(12));
+    $this->assertFalse($mediodepago->avanzarTiempo(-200));
   }
 
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace TrabajoTarjeta;
+namespace TrabajoPagos;
 
-class MedioBoleto extends Tarjeta {
+class MedioBoleto extends MedioDePago {
 
   protected $tiempo;
   protected $tiempoAux;

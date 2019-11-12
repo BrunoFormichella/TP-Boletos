@@ -22,7 +22,7 @@ class ComposerStaticInit7ce6eb18a0fcb62c64ddabd708f19a8e
         ),
         'T' => 
         array (
-            'TrabajoTarjeta\\' => 15,
+            'TrabajoPagos\\' => 15,
         ),
         'S' => 
         array (
@@ -50,7 +50,7 @@ class ComposerStaticInit7ce6eb18a0fcb62c64ddabd708f19a8e
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
         ),
-        'TrabajoTarjeta\\' => 
+        'TrabajoPagos\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

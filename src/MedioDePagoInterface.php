@@ -1,8 +1,8 @@
 <?php
 
-namespace TrabajoTarjeta;
+namespace TrabajoPagos;
 
-interface TarjetaInterface {
+interface MedioDePagoInterface {
 
   /**
    * Recarga una tarjeta con un cierto valor de dinero.

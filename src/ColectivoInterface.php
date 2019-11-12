@@ -1,6 +1,6 @@
 <?php
 
-namespace TrabajoTarjeta;
+namespace TrabajoPagos;
 
 interface ColectivoInterface {
 
@@ -28,12 +28,12 @@ interface ColectivoInterface {
   /**
    * Paga un viaje en el colectivo con una tarjeta en particular.
    *
-   * @param TarjetaInterface $tarjeta
+   * @param MedioDePagoInterface $mediodepago
    *
    * @return BoletoInterface|FALSE
    *  El boleto generado por el pago del viaje. O FALSE si no hay saldo
    *  suficiente en la tarjeta.
    */
-  public function pagarCon(TarjetaInterface $tarjeta);
+  public function pagarCon(MedioDePagoInterface $mediodepago);
 
 }

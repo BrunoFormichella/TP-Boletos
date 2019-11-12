@@ -1,6 +1,6 @@
 <?php
 
-namespace TrabajoTarjeta;
+namespace TrabajoPagos;
 
 use PHPUnit\Framework\TestCase;
 
@@ -23,19 +23,19 @@ class ColectivoTest extends TestCase {
  *
  */
   public function testPagarCon() {
-    $tarjeta = new Tarjeta(new Tiempo());
-    $tarjeta->recargar(100);
+    $mediodepago = new MedioDePago(new Tiempo());
+    $mediodepago->recargar(100);
     $colectivo = new Colectivo(null, null, null);
-    $boleto = $colectivo->pagarCon($tarjeta);
+    $boleto = $colectivo->pagarCon($mediodepago);
     $this->assertNotFalse($boleto);
-    $boleto = $colectivo->pagarCon($tarjeta);
+    $boleto = $colectivo->pagarCon($mediodepago);
     $this->assertNotFalse($boleto);
-    $tarjeta = new Tarjeta(new Tiempo());
-    $tarjeta->pagarPasaje();
-    $tarjeta->pagarPasaje();
-    $this->assertFalse($colectivo->pagarCon($tarjeta));
-    $tarjeta->recargar(10);
-    $this->assertFalse($colectivo->pagarCon($tarjeta));
+    $mediodepago = new MedioDePago(new Tiempo());
+    $mediodepago->pagarPasaje();
+    $mediodepago->pagarPasaje();
+    $this->assertFalse($colectivo->pagarCon($mediodepago));
+    $mediodepago->recargar(10);
+    $this->assertFalse($colectivo->pagarCon($mediodepago));
   }
 
 

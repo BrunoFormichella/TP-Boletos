@@ -1,6 +1,6 @@
 <?php
 
-namespace TrabajoTarjeta;
+namespace TrabajoPagos;
 
 class Colectivo implements ColectivoInterface {
   protected $linea;
@@ -59,15 +59,15 @@ class Colectivo implements ColectivoInterface {
    * efectua y genera un boleto que es devuelto por la funcion. En caso de
    * que no se pueda efectuar el pago, devuelve false
    *
-   * @param TarjetaInterface $tarjeta
-   *   Tarjeta con la que se quiere efectuar el pago
+   * @param MedioDePagoInterface $mediodepago
+   *   MedioDePago con la que se quiere efectuar el pago
    *
    * @return BoletoInterface|FALSE
    *   Boleto generado por el pago | FALSE
    */
-  public function pagarCon(TarjetaInterface $tarjeta) {
-    $tarjeta->establecerLinea($this->linea);
-    if ($tarjeta->pagarPasaje()) {
+  public function pagarCon(MedioDePagoInterface $mediodepago) {
+    $mediodepago->establecerLinea($this->linea);
+    if ($mediodepago->pagarPasaje()) {
       return true;
     }
     else {

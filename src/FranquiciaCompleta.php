@@ -1,11 +1,11 @@
 <?php
 
-namespace TrabajoTarjeta;
+namespace TrabajoPagos;
 
-class FranquiciaCompleta extends Tarjeta {
+class FranquiciaCompleta extends MedioDePago {
 
   /**
-   * Construye una Tarjeta de tipo Franquicia completa
+   * Construye una MedioDePago de tipo Franquicia completa
    *
    * @param TiempoInterface $tiempo
    *   Tiempo que utiliza la tarjeta (utilizar tiempo falso solo en caso de testing)

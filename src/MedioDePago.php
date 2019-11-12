@@ -1,8 +1,8 @@
 <?php
 
-namespace TrabajoTarjeta;
+namespace TrabajoPagos;
 
-class Tarjeta implements TarjetaInterface {
+class MedioDePago implements MedioDePagoInterface {
   protected $saldo;
   protected $precio;
   protected $cantPlus;
