@@ -19,13 +19,15 @@ class MedioBoleto extends Tarjeta {
 
   public function __construct(TiempoInterface $tiempo) {
     parent::__construct($tiempo);
+    
+    $this->precioOriginal = $this->precio;
+
     $this->precio /= 2;
 
     $this->tiempo = $tiempo;
 
     $this->tiempoAux = -4000;
 
-    $this->precioOriginal = $this->precio;
   }
 
   /**
@@ -79,14 +81,14 @@ class MedioBoleto extends Tarjeta {
    */
 
   public function pagarPasaje() {
-    if ($this->obtenerSaldo() < 7.4) {
+    if ($this->obtenerSaldo() < 16.25) {
       return $this->pasajeNormal();
     }
 
     if ($this->pasaron5Minutos()) {
       $this->tiempoAux = $this->tiempo->time();
       $this->usos++;      
-      return parent::pagarPasaje();
+      return pagarPasaje();
     }
     else {
       return $this->pasajeNormal();
