@@ -235,20 +235,10 @@ class Tarjeta implements TarjetaInterface {
     }
     $limitacionHora = 60;
     switch ($this->dia()) {
-      case "Saturday":
-        if ($this->hora() < 14) {
-          break;
-        }
       case "Sunday":
-        $limitacionHora = 90;
+        $limitacionHora = 120;
     }
-    if ($this->verificarHora()) {
-      $limitacionHora = 90;
-    }
-    if ($this->verificarTrasbordo($limitacionHora)) {
-      $this->precio /= 3;
-      $this->fueTrasbordo = TRUE;
-    }
+
   }
   
   /**
