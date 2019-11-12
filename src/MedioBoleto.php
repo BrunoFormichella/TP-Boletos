@@ -17,7 +17,7 @@ class MedioBoleto extends Tarjeta {
    *   Tipo de la tarjeta. 0 -> Medio Boleto Universitario, en cualquier otro caso -> Medio Boleto Secundario
    */
 
-  public function __construct(TiempoInterface $tiempo, $tipo = 1) {
+  public function __construct(TiempoInterface $tiempo) {
     parent::__construct($tiempo);
     $this->precio /= 2;
 
@@ -51,17 +51,6 @@ class MedioBoleto extends Tarjeta {
     $aux = parent::pagarPasaje();
     $this->precio /= 2;
     return $aux;
-  }
-
-  /**
-   * Devuelve el tipo de la tarjeta que se esta utilizando
-   *
-   * @return string
-   *   Tipo de la tarjeta
-   */
-
-  public function tipoTarjeta() {
-    return $this->tipo;
   }
 
   /**

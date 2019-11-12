@@ -6,6 +6,22 @@ use PHPUnit\Framework\TestCase;
 
 class ColectivoTest extends TestCase {
 
+  public function testDatosColectivo() {
+    $colectivo = new Colectivo(143, "143 Rojo", "Semtur");
+    $this->assertEquals($colectivo->linea(), "143 Rojo");
+    $this->assertEquals($colectivo->numero(), 143);
+    $this->assertEquals($colectivo->empresa(), "Semtur");
+    $colectivo = new Colectivo(113, "113", "empresa");
+    $this->assertEquals($colectivo->linea(), "113");
+    $this->assertEquals($colectivo->numero(), 113);
+    $this->assertEquals($colectivo->empresa(), "empresa");
+  }
+  
+/**
+ *
+ * Cambiar este test para que Boleto sea lo que se muestra en el visor de la maquina del colectivo
+ *
+ */
   public function testPagarCon() {
     $tarjeta = new Tarjeta(new Tiempo());
     $tarjeta->recargar(100);
@@ -22,14 +38,5 @@ class ColectivoTest extends TestCase {
     $this->assertFalse($colectivo->pagarCon($tarjeta));
   }
 
-  public function testDatosColectivo() {
-    $colectivo = new Colectivo(143, "143 Rojo", "Semtur");
-    $this->assertEquals($colectivo->linea(), "143 Rojo");
-    $this->assertEquals($colectivo->numero(), 143);
-    $this->assertEquals($colectivo->empresa(), "Semtur");
-    $colectivo = new Colectivo(113, "113", "empresa");
-    $this->assertEquals($colectivo->linea(), "113");
-    $this->assertEquals($colectivo->numero(), 113);
-    $this->assertEquals($colectivo->empresa(), "empresa");
-  }
+
 }
