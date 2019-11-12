@@ -94,11 +94,13 @@ class MedioDePagoTest extends TestCase {
   public function testTrasbordo() {
     $mediodepago = new MedioDePago(new TiempoFalso(), new Trasbordo(), new Saldo()); //Se crea el 1 de enero de 1970: Jueves 00:00hs
     $mediodepago->recargar(100);
+    $mediodepago->establecerLinea(127);
     $mediodepago->pagarPasaje();
     $mediodepago->reestablecerPrecio();
     $this->assertEquals($mediodepago->obtenerSaldo(), 67.5);
 
-    $mediodepago->avanzarTiempo(500);
+    $mediodepago->avanzarTiempo(50);
+    $mediodepago->establecerLinea(169);
     $mediodepago->pagarPasaje();
     $mediodepago->reestablecerPrecio();
     $this->assertEquals($mediodepago->obtenerSaldo(), 67.5);
