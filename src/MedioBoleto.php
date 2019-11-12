@@ -4,7 +4,6 @@ namespace TrabajoTarjeta;
 
 class MedioBoleto extends Tarjeta {
 
-  protected $tipo;
   protected $tiempo;
   protected $tiempoAux;
   protected $usos;
@@ -21,15 +20,6 @@ class MedioBoleto extends Tarjeta {
   public function __construct(TiempoInterface $tiempo, $tipo = 1) {
     parent::__construct($tiempo);
     $this->precio /= 2;
-
-    switch ($tipo) {
-      case 0:
-        $this->tipo = "Medio Boleto Universitario";
-        break;
-      default:
-        $this->tipo = "Medio Boleto Secundario";
-        break;
-    }
 
     $this->tiempo = $tiempo;
 
@@ -113,12 +103,6 @@ class MedioBoleto extends Tarjeta {
   public function pagarPasaje() {
     if ($this->obtenerSaldo() < 7.4) {
       return $this->pasajeNormal();
-    }
-
-    if ($this->esUniversitario()) {
-      if ($this->dosViajes()) {
-        return $this->pasajeNormal();
-      }
     }
 
     if ($this->pasaron5Minutos()) {
