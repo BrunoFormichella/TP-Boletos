@@ -11,8 +11,8 @@ class FranquiciaCompleta extends MedioDePago {
    *   Tiempo que utiliza la tarjeta (utilizar tiempo falso solo en caso de testing)
    */
 
-  public function __construct(TiempoInterface $tiempo) {
-    parent::__construct($tiempo);
+  public function __construct(TiempoInterface $tiempo, $trasbordo, $recarga) {
+    parent::__construct($tiempo, $trasbordo, $recarga);
     $this->precio = 0;
   }
 
