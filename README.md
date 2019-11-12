@@ -30,7 +30,7 @@ Principio I aplica:
 -Tiempo
 -TiempoFalso
 
-Principio D aplica:
+Principio D aplica: (No estoy 100% seguro de haberlo entendido bien, asi que puede que esto este mal)
 -Colectivo
 -FranquiciaCompleta
 -MedioBoleto
