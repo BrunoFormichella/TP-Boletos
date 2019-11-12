@@ -96,9 +96,7 @@ class MedioBoleto extends Tarjeta {
 
     if ($this->pasaron5Minutos()) {
       $this->tiempoAux = $this->tiempo->time();
-      if ($this->esUniversitario()) {
-        $this->usos++;
-      }
+      $this->usos++;      
       return parent::pagarPasaje();
     }
     else {
