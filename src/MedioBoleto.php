@@ -17,8 +17,8 @@ class MedioBoleto extends MedioDePago {
    *   Tipo de la tarjeta. 0 -> Medio Boleto Universitario, en cualquier otro caso -> Medio Boleto Secundario
    */
 
-   public function __construct(TiempoInterface $tiempo) {
-    parent::__construct($tiempo);
+   public function __construct(TiempoInterface $tiempo, TrasbordoInterface $trasbordo) {
+    parent::__construct($tiempo, $trasbordo);
     
     $this->precio /= 2;
 

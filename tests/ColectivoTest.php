@@ -23,14 +23,14 @@ class ColectivoTest extends TestCase {
  *
  */
   public function testPagarCon() {
-    $mediodepago = new MedioDePago(new Tiempo());
+    $mediodepago = new MedioDePago(new Tiempo(), new Trasbordo());
     $mediodepago->recargar(100);
     $colectivo = new Colectivo(null, null, null);
     $boleto = $colectivo->pagarCon($mediodepago);
     $this->assertNotFalse($boleto);
     $boleto = $colectivo->pagarCon($mediodepago);
     $this->assertNotFalse($boleto);
-    $mediodepago = new MedioDePago(new Tiempo());
+    $mediodepago = new MedioDePago(new Tiempo(), new Trasbordo());
     $mediodepago->pagarPasaje();
     $mediodepago->pagarPasaje();
     $this->assertFalse($colectivo->pagarCon($mediodepago));

@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 class FranquiciasTest extends TestCase {
 
   public function testMedioBoleto() {
-    $mediodepago = new MedioBoleto(new TiempoFalso(900));
+    $mediodepago = new MedioBoleto(new TiempoFalso(900), new Trasbordo());
     $mediodepago->recargar(100);
     $mediodepago->pagarPasaje();
     $this->assertEquals($mediodepago->obtenerSaldo(), 83.75);
@@ -33,7 +33,7 @@ class FranquiciasTest extends TestCase {
   }
 
   public function testLimitacion5mins() {
-    $mediodepago = new MedioBoleto(new TiempoFalso(700));
+    $mediodepago = new MedioBoleto(new TiempoFalso(700), new Trasbordo());
     $mediodepago->noContarTrasbordos();
     $mediodepago->recargar(100);
     $this->assertTrue($mediodepago->pagarPasaje());
@@ -47,7 +47,7 @@ class FranquiciasTest extends TestCase {
   }
 
   public function testViajePlus() {
-    $mediodepago = new MedioBoleto(new TiempoFalso(900));
+    $mediodepago = new MedioBoleto(new TiempoFalso(900), new Trasbordo());
     $mediodepago->noContarTrasbordos();
     $this->assertTrue($mediodepago->pagarPasaje());
     $this->assertEquals($mediodepago->obtenerSaldo(), -32.5);
@@ -81,7 +81,7 @@ class FranquiciasTest extends TestCase {
   */
   
   public function testTiempoReal() {
-    $mediodepago = new MedioBoleto(new Tiempo());
+    $mediodepago = new MedioBoleto(new Tiempo(), new Trasbordo());
     $this->assertFalse($mediodepago->avanzarTiempo(200));
     $this->assertFalse($mediodepago->avanzarTiempo("200"));
     $this->assertFalse($mediodepago->avanzarTiempo(12));
