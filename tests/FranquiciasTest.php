@@ -16,10 +16,10 @@ class FranquiciasTest extends TestCase {
     $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);
     $tarjeta->avanzarTiempo(5500);
     $tarjeta->pagarPasaje();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 35);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 51.25);
     $tarjeta->avanzarTiempo(5500);
     $tarjeta->pagarPasaje();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 2,5);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 35);
 
   }
 
@@ -43,7 +43,7 @@ class FranquiciasTest extends TestCase {
     $this->assertEquals($tarjeta->obtenerSaldo(), 51.25);
     $tarjeta->avanzarTiempo(200);
     $tarjeta->pagarPasaje();
-    $this->assertEquals($tarjeta->obtenerSaldo(), 19.79);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 35);
   }
 
   public function testViajePlus() {
@@ -55,7 +55,7 @@ class FranquiciasTest extends TestCase {
     $this->assertEquals($tarjeta->obtenerSaldo(), -65);
     $tarjeta->recargar(100);
     $this->assertTrue($tarjeta->pagarPasaje());
-    $this->assertEquals($tarjeta->obtenerSaldo(), 2.5);
+    $this->assertEquals($tarjeta->obtenerSaldo(), 18.75);
   }
 
   /*
