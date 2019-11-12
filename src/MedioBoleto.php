@@ -38,7 +38,7 @@ class MedioBoleto extends Tarjeta {
    */
 
   protected function pasaron5Minutos() {
-    return ($this->tiempo->time() - $this->tiempoAux) > 300;
+    return (($this->tiempo->time() - $this->tiempoAux) > 300);
   }
 
   /**
@@ -81,21 +81,21 @@ class MedioBoleto extends Tarjeta {
    */
 
   public function pagarPasaje() {
-    /*
+    
     if ($this->obtenerSaldo() < 16.25) {
       return $this->pasajeNormal();
     }
-*/
+
     if ($this->pasaron5Minutos()) {
       $this->tiempoAux = $this->tiempo->time();
       $this->usos++;      
       return parent::pagarPasaje();
     }
-    /*
+    
     else {
       return $this->pasajeNormal();
     }
-*/
+
   }
 
 }

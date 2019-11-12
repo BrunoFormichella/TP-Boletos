@@ -11,13 +11,13 @@ class FranquiciasTest extends TestCase {
     $tarjeta->recargar(100);
     $tarjeta->pagarPasaje();
     $this->assertEquals($tarjeta->obtenerSaldo(), 83.75);
-    $tarjeta->avanzarTiempo(5500);
+    $tarjeta->avanzarTiempo(400);
     $tarjeta->pagarPasaje();
     $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);
-    $tarjeta->avanzarTiempo(5500);
+    $tarjeta->avanzarTiempo(400);
     $tarjeta->pagarPasaje();
     $this->assertEquals($tarjeta->obtenerSaldo(), 51.25);
-    $tarjeta->avanzarTiempo(5500);
+    $tarjeta->avanzarTiempo(400);
     $tarjeta->pagarPasaje();
     $this->assertEquals($tarjeta->obtenerSaldo(), 35);
 
