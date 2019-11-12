@@ -197,9 +197,6 @@ class Tarjeta implements TarjetaInterface {
       if ($this->saldo < 0) {
         $this->cantPlus++;
       }
-      $this->minutos = $this->horaEnMinutos();
-      $this->dia = $this->dia();
-      $this->hora = (int) date("H", $this->tiempo->time());
       $this->lineaAnterior = $this->linea;
       return TRUE;
     }

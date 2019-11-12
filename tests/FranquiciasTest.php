@@ -96,12 +96,4 @@ class FranquiciasTest extends TestCase {
     $this->assertFalse($tarjeta->avanzarTiempo(-200));
   }
 
-  public function testTipoTarjeta() {
-    $secundario = new MedioBoleto(new Tiempo());
-    $universitario = new MedioBoleto(new Tiempo(), 0);
-    $this->assertEquals($secundario->tipoTarjeta(), "Medio Boleto Secundario");
-    $this->assertEquals($universitario->tipoTarjeta(), "Medio Boleto Universitario");
-    $this->assertNotEquals($secundario->tipoTarjeta(), "Medio Boleto Universitario");
-    $this->assertNotEquals($universitario->tipoTarjeta(), "Medio Boleto Secundario");
-  }
 }

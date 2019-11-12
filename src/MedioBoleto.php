@@ -54,17 +54,6 @@ class MedioBoleto extends Tarjeta {
   }
 
   /**
-   * Verifica si el tipo de franquicia es universitaria
-   *
-   * @return bool
-   *   Indica si la franquicia es universitaria
-   */
-
-  protected function esUniversitario() {
-    return $this->tipo == "Medio Boleto Universitario";
-  }
-
-  /**
    * Devuelve el tipo de la tarjeta que se esta utilizando
    *
    * @return string
