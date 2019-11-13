@@ -94,6 +94,7 @@ class MedioDePagoTest extends TestCase {
   public function testTrasbordo() {
     $mediodepago = new MedioDePago(new TiempoFalso(), new Trasbordo(), new Saldo()); //Se crea el 1 de enero de 1970: Jueves 00:00hs
     $mediodepago->recargar(100);
+    
     $mediodepago->establecerLinea(127);
     $mediodepago->pagarPasaje();
     $mediodepago->reestablecerPrecio();

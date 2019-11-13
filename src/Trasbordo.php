@@ -29,8 +29,7 @@ class Trasbordo {
         }
 
         if ($this->verificarLimite($limitacionHora,$minuto,$horaEnMinutos)) {
-            $this->precio = 0;
-            $this->fueTrasbordo = TRUE;
+            return true;
         }
 
     }

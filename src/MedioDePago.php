@@ -158,9 +158,11 @@ class MedioDePago implements MedioDePagoInterface {
    public function pagarPasaje() {
     $horaMinutos = $this->horaEnMinutos();
     $hora = $this->hora();
-    $this->minutos = $this->horaEnMinutos();
-
     $this->fueTrasbordo = $this->trasbordo->esTrasbordo($linea,$minutos,$horaMinutos,$hora);
+
+    if ($this->fueTrasbordo) {
+      $this->precio = 0;
+    }
 
     if ($this->saldo >= (-$this->precio)) {
       $this->saldo = (float) number_format($this->saldo - $this->precio, 2);
@@ -173,6 +175,8 @@ class MedioDePago implements MedioDePagoInterface {
       return TRUE;
     }
 
+    $this->minutos = $this->horaEnMinutos();
+  
     return FALSE;
   }
 
