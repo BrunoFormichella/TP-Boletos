@@ -162,18 +162,18 @@ class MedioDePagoTest extends TestCase {
 
     $mediodepago = new MedioDePago(new TiempoFalso(), new Trasbordo(), new Saldo());
     $mediodepago->recargar(100);
-    $mediodepago->pagarPasaje();
+    $colectivo->pagarCon($mediodepago);
     $mediodepago->reestablecerPrecio();
     $this->assertEquals($mediodepago->obtenerSaldo(), 100 - 32.5);
     
     $mediodepago->avanzarTiempo(1);
-    $mediodepago->pagarPasaje();
+    $colectivo2->pagarCon($mediodepago);
     $mediodepago->reestablecerPrecio();
     $this->assertEquals($mediodepago->obtenerSaldo(), 67.5);
 
     $mediodepago->avanzarTiempo(2000);
 
-    $mediodepago->pagarPasaje();
+    $colectivo->pagarCon($mediodepago);
     $mediodepago->reestablecerPrecio();
     $this->assertEquals($mediodepago->obtenerSaldo(), 35);
   }
