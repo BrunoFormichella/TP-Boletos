@@ -5,6 +5,7 @@ namespace TrabajoPagos;
 class Trasbordo {
 
     protected $ultimaLinea;
+    protected $pagadoReciente = false;
 
 
     /**
@@ -13,25 +14,27 @@ class Trasbordo {
 
     public function esTrasbordo($linea, $minuto, $horaEnMinutos, $hora) {
 
-        if ($this->fueTrasbordo || $this->plusAbonados != 0) {
-            return false;
-        }
-
         if ($this->verificarLinea($linea)) {
+            $pagadoReciente = true;
             return false;
         }
+
         $ultimaLinea = $linea;
-
+    
         $limitacionHora = 60;
-
+    
         if ($this->verificarHora($hora)) {
             $limitacionHora = 120;
         }
-
+    
         if ($this->verificarLimite($limitacionHora,$minuto,$horaEnMinutos)) {
-            return true;
+            $pagadoReciente = true;
+            return false;
         }
 
+        if($pagadoReciente){
+            return true;
+        }
     }
 
 
@@ -57,7 +60,7 @@ class Trasbordo {
     */
 
     private function verificarLimite($limitacionHora,$minutos,$horaEnMinutos) {
-        $limitacion = ($horaEnMinutos - $minutos) < $limitacionHora;
+        $limitacion = ($horaEnMinutos - $minutos) > $limitacionHora;
         return $limitacion;
     }
 
@@ -70,6 +73,6 @@ class Trasbordo {
 
     private function verificarLinea($linea) {
         $mismaLinea = $this->ultimaLinea == $linea;
-        return isset($linea) && isset($this->ultimaLinea) && $mismaLinea;
+        return $mismaLinea;
     }
 }

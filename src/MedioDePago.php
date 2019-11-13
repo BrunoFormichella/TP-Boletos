@@ -13,7 +13,8 @@ class MedioDePago implements MedioDePagoInterface {
   protected $contarTrasbordos;
   protected $linea;
   protected $lineaAnterior;
-  protected $fueTrasbordo;
+  protected $pagadoReciente;
+  protected $actualTrasbordo;
   protected $trasbordo;
   protected $minutos;
 
@@ -38,7 +39,7 @@ class MedioDePago implements MedioDePagoInterface {
     $this->contarTrasbordos = TRUE;
     $this->precioOriginal = $this->precio;
     $this->trasbordo=$trasbordo;
-    $fueTrasbordo = FALSE;
+    $pagadoReciente = FALSE;
   }
 
   /**
@@ -158,9 +159,9 @@ class MedioDePago implements MedioDePagoInterface {
    public function pagarPasaje() {
     $horaMinutos = $this->horaEnMinutos();
     $hora = $this->hora();
-    $this->fueTrasbordo = $this->trasbordo->esTrasbordo($linea,$minutos,$horaMinutos,$hora);
+    $this->actualTrasbordo = $this->trasbordo->esTrasbordo($linea,$minutos,$horaMinutos,$hora);
 
-    if ($this->fueTrasbordo) {
+    if ($this->actualTrasbordo) {
       $this->precio = 0;
     }
 
@@ -176,6 +177,7 @@ class MedioDePago implements MedioDePagoInterface {
     }
 
     $this->minutos = $this->horaEnMinutos();
+    $this->fueTrasbordo = false;
 
     return FALSE;
   }
