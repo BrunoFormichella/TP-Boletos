@@ -4,7 +4,6 @@ namespace TrabajoPagos;
 
 class Trasbordo {
 
-    protected $ultimaLinea;
     protected $pagadoReciente = false;
 
 
@@ -12,9 +11,9 @@ class Trasbordo {
     * Verifica si el pasaje a pagar es un trasbordo. Si es un trasbordo, cambia el precio del pasaje.
     */
 
-    public function esTrasbordo($linea, $minuto, $horaEnMinutos, $hora) {
+    public function esTrasbordo($linea,$lineaAnterior, $minuto, $horaEnMinutos, $hora) {
 
-        if ($this->verificarLinea($linea)) {
+        if ($lineaAnterior == $linea) {
             $this->pagadoReciente = true;
             return false;
         }
@@ -57,8 +56,8 @@ class Trasbordo {
     *   Indica si el pasaje es trasbordo
     */
 
-    private function verificarLimite($limitacionHora,$minutos,$horaEnMinutos) {
-        $limitacion = ($horaEnMinutos - $minutos) > $limitacionHora;
+    private function verificarLimite($limitacionHora,$minuto,$horaEnMinutos) {
+        $limitacion = ($horaEnMinutos - $minuto) > $limitacionHora;
         return $limitacion;
     }
 
@@ -69,9 +68,4 @@ class Trasbordo {
     *   Indica si las lineas son diferentes
     */
 
-    private function verificarLinea($linea) {
-        $mismaLinea = $this->ultimaLinea == $linea;
-        $this->ultimaLinea = $linea; 
-        return $mismaLinea;
-    }
 }

@@ -172,10 +172,11 @@ class MedioDePago implements MedioDePagoInterface {
       }
       $this->dia = $this->dia();
       $this->hora = (int) date("H", $this->tiempo->time());
+      $this->lineaAnterior=$this->linea;
+      $this->minutos = $this->horaEnMinutos();
+      
       return TRUE;
     }
-
-    $this->minutos = $this->horaEnMinutos();
 
     return FALSE;
   }
