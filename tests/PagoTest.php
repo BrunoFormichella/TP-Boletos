@@ -171,7 +171,7 @@ class MedioDePagoTest extends TestCase {
     $mediodepago->reestablecerPrecio();
     $this->assertEquals($mediodepago->obtenerSaldo(), 67.5);
 
-    $mediodepago->avanzarTiempo(2000);
+    $mediodepago->avanzarTiempo(8000);
 
     $colectivo->pagarCon($mediodepago);
     $mediodepago->reestablecerPrecio();
