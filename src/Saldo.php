@@ -4,8 +4,6 @@ namespace TrabajoPagos;
 
 class Saldo {
 
-    protected $credito;
-
     /**
    * Verifica si una recarga puede ser valida y devuelve el valor de la recarga.
    *  En caso que no sea valida devuelve 0 como valor de la recarga
@@ -19,21 +17,25 @@ class Saldo {
 
   public function recargaValida($monto) {
     switch ($monto) {
-      case 10:
-      case 20:
-      case 30:
-      case 50:
-      case 100:
-        break;
+      case 10:    
+        return $monto;
+      case 20:   
+         return $monto;
+      case 30:    
+        return $monto;
+      case 50:    
+        return $monto;
+      case 100:    
+        return $monto;
       case 1119.90:
         $monto += 180.10;
-        break;
+        return $monto;
       case 2114.11:
         $monto += 485.89;
-        break;
+        return $monto;
       default:
         $monto = 0;
+        return $monto;
     }
-    return $monto;
   }
 }
