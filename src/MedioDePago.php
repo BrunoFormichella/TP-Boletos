@@ -159,7 +159,7 @@ class MedioDePago implements MedioDePagoInterface {
    public function pagarPasaje() {
     $horaMinutos = $this->horaEnMinutos();
     $hora = $this->hora();
-    $this->actualTrasbordo = $this->trasbordo->esTrasbordo($this->linea,$this->minutos,$horaMinutos,$hora);
+    $this->actualTrasbordo = $this->trasbordo->esTrasbordo($this->linea,$this->$lineaAnterior,$this->minutos,$horaMinutos,$hora);
 
     if ($this->actualTrasbordo) {
       $this->precio = 0;
