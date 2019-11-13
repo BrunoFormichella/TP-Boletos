@@ -59,7 +59,7 @@ class MedioDePago implements MedioDePagoInterface {
     if ($monto == 0) {
       return false;
     }
-    $this->saldo += ($this->recarga->recargaValida($monto));
+    $this->saldo += $monto;
     return TRUE;
   }
 
@@ -176,7 +176,7 @@ class MedioDePago implements MedioDePagoInterface {
     }
 
     $this->minutos = $this->horaEnMinutos();
-  
+
     return FALSE;
   }
 
