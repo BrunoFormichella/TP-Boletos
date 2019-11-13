@@ -15,7 +15,7 @@ class Trasbordo {
     public function esTrasbordo($linea, $minuto, $horaEnMinutos, $hora) {
 
         if ($this->verificarLinea($linea)) {
-            $pagadoReciente = true;
+            $this->pagadoReciente = true;
             return false;
         }
     
@@ -26,11 +26,11 @@ class Trasbordo {
         }
     
         if ($this->verificarLimite($limitacionHora,$minuto,$horaEnMinutos)) {
-            $pagadoReciente = true;
+            $this->pagadoReciente = true;
             return false;
         }
 
-        if($pagadoReciente){
+        if($this->pagadoReciente){
             return true;
         }
     }
