@@ -18,8 +18,6 @@ class Trasbordo {
             $pagadoReciente = true;
             return false;
         }
-
-        $ultimaLinea = $linea;
     
         $limitacionHora = 60;
     
@@ -73,6 +71,7 @@ class Trasbordo {
 
     private function verificarLinea($linea) {
         $mismaLinea = $this->ultimaLinea == $linea;
+        $this->ultimaLinea = $linea; 
         return $mismaLinea;
     }
 }
